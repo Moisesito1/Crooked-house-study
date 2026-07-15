@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards de Vocabulario</title>
+    <title>Flashcards de Vocabulario (30 Palabras)</title>
     <style>
-        /* Paleta de colores basada en la línea gráfica aprobada */
         :root {
-            --bg-color: #0f172a; /* Azul oscuro profundo */
-            --card-bg: #1e293b; /* Azul grisáceo de la tarjeta */
-            --text-primary: #f59e0b; /* Amarillo/Naranja vibrante (títulos) */
-            --text-secondary: #94a3b8; /* Gris claro para transcripciones y texto secundario */
-            --text-muted: #64748b; /* Gris oscuro para instrucciones menores */
+            --bg-color: #0f172a;        /* Azul oscuro profundo */
+            --card-bg: #1e293b;         /* Azul de la tarjeta */
+            --text-primary: #f59e0b;    /* Amarillo/Naranja vibrante */
+            --text-secondary: #94a3b8;  /* Gris claro para fonética y traducciones */
+            --text-muted: #64748b;       /* Gris oscuro para elementos secundarios */
             --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
             --border-radius: 20px;
         }
@@ -26,13 +25,40 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            box-sizing: border-box;
         }
 
         h1 {
             color: var(--text-primary);
             font-size: 1.8rem;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             text-align: center;
+        }
+
+        /* Selector de Grupos (Blocks) */
+        .block-selector {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .block-btn {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .block-btn.active {
+            background-color: var(--text-primary);
+            color: var(--bg-color);
+            border-color: var(--text-primary);
         }
 
         .container {
@@ -43,11 +69,11 @@
             gap: 24px;
         }
 
-        /* Contenedor de la Tarjeta con efecto Flip */
+        /* Estructura de la Tarjeta */
         .card-container {
             perspective: 1000px;
             width: 100%;
-            height: 380px;
+            height: 400px;
             cursor: pointer;
         }
 
@@ -64,7 +90,6 @@
             transform: rotateY(180deg);
         }
 
-        /* Caras de la Tarjeta */
         .card-front, .card-back {
             position: absolute;
             width: 100%;
@@ -84,18 +109,17 @@
 
         .card-back {
             transform: rotateY(180deg);
-            background-color: #1e294b; /* Variación sutil de fondo para el reverso */
+            background-color: #1e294b;
         }
 
-        /* Elementos Gráficos (La línea sugerida) */
+        /* Nueva línea gráfica de figuras sugerentes */
         .graphic-icon {
-            font-size: 4.5rem; /* Tamaño óptimo para las ilustraciones/emojis */
+            font-size: 4.8rem;
             margin-top: 10px;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
             user-select: none;
         }
 
-        /* Textos */
         .word {
             color: var(--text-primary);
             font-size: 2.2rem;
@@ -108,7 +132,6 @@
             color: var(--text-secondary);
             font-size: 1.1rem;
             font-style: italic;
-            font-family: "Lucida Sans Unicode", "DejaVu Sans", sans-serif;
             margin-bottom: 20px;
         }
 
@@ -118,10 +141,9 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             font-weight: 600;
-            margin-bottom: 5px;
         }
 
-        /* Reverso de la tarjeta */
+        /* Reverso de la Tarjeta */
         .translation {
             color: var(--text-primary);
             font-size: 2rem;
@@ -143,7 +165,7 @@
             font-style: italic;
         }
 
-        /* Navegación y controles */
+        /* Controles inferiores */
         .controls {
             display: flex;
             justify-content: space-between;
@@ -179,7 +201,12 @@
 </head>
 <body>
 
-    <h1>My English Vocabulary</h1>
+    <h1>English Vocabulary</h1>
+
+    <!-- Selector de Bloques de Estudio -->
+    <div class="block-selector" id="blockSelector">
+        <!-- Generado dinámicamente -->
+    </div>
 
     <div class="container">
         <!-- Tarjeta Interactiva -->
@@ -187,19 +214,19 @@
             <div class="card-inner">
                 <!-- Frente (Pregunta) -->
                 <div class="card-front">
-                    <div class="graphic-icon" id="cardIcon">🦊</div>
+                    <div class="graphic-icon" id="cardIcon">🧠</div>
                     <div>
-                        <div class="word" id="cardWord">Cunning</div>
-                        <div class="phonetic" id="cardPhonetic">/ˈkʌn.ɪŋ/</div>
+                        <div class="word" id="cardWord">Word</div>
+                        <div class="phonetic" id="cardPhonetic">/phonetic/</div>
                     </div>
                     <div class="action-text">Click to flip</div>
                 </div>
                 <!-- Reverso (Respuesta) -->
                 <div class="card-back">
-                    <div class="translation" id="cardTranslation">Astuto / Maquiavélico</div>
+                    <div class="translation" id="cardTranslation">Traducción</div>
                     <div>
-                        <div class="example-sentence" id="cardExample">"He is cunning enough to find a way out."</div>
-                        <div class="example-translation" id="cardExampleTrans">"Él es lo bastante astuto para encontrar una salida."</div>
+                        <div class="example-sentence" id="cardExample">Example sentence in English.</div>
+                        <div class="example-translation" id="cardExampleTrans">Traducción del ejemplo.</div>
                     </div>
                     <div class="action-text">Click to flip</div>
                 </div>
@@ -209,71 +236,67 @@
         <!-- Controles de Navegación -->
         <div class="controls">
             <button class="btn" id="prevBtn">← Anterior</button>
-            <span class="counter" id="cardCounter">1 / 6</span>
+            <span class="counter" id="cardCounter">1 / 5</span>
             <button class="btn" id="nextBtn">Siguiente →</button>
         </div>
     </div>
 
     <script>
-        // Set de datos estructurado con la nueva guía visual y de contenido
-        const flashcards = [
-            {
-                word: "Shrewd",
-                phonetic: "/ʃruːd/",
-                translation: "Astuto / Perspicaz",
-                icon: "🧠", // El cerebro aprobado de la primera versión
-                example: "She is a shrewd businesswoman.",
-                exampleTrans: "Ella es una empresaria perspicaz."
-            },
-            {
-                word: "Cunning",
-                phonetic: "/ˈkʌn.ɪŋ/",
-                translation: "Astuto / Sagaz",
-                icon: "🦊", // El zorro aprobado de la primera versión
-                example: "He is cunning enough to find a way out.",
-                exampleTrans: "Él es lo bastante astuto para encontrar una salida."
-            },
-            {
-                word: "Standoffish",
-                phonetic: "/ˌstændˈɒf.ɪʃ/",
-                translation: "Distante / Frío",
-                icon: "🙉", // Mono serio tapándose los oídos (sin sonrisa) para actitud fría/distante
-                example: "She was cold and standoffish at the party.",
-                exampleTrans: "Ella estuvo fría y distante en la fiesta."
-            },
-            {
-                word: "To point out",
-                phonetic: "/toʊ pɔɪnt aʊt/",
-                translation: "Señalar / Indicar",
-                icon: "👉", // Mano apuntando directamente
-                example: "He pointed out the mistake on the map.",
-                exampleTrans: "Él señaló el error en el mapa."
-            },
-            {
-                word: "To snoop",
-                phonetic: "/toʊ snuːp/",
-                translation: "Curiosidad / Fisgonear",
-                icon: "👀", // Ojos fisgoneando
-                example: "Don't snoop around my office.",
-                exampleTrans: "No andes fisgoneando por mi oficina."
-            },
-            {
-                word: "Gullible",
-                phonetic: "/ˈɡʌl.ə.bəl/",
-                translation: "Ingenuo / Crédulo",
-                icon: "🐠", // Pez ingenuo cayendo en la trampa
-                example: "They sell useless gadgets to gullible tourists.",
-                exampleTrans: "Venden aparatos inútiles a turistas crédulos."
-            }
+        // Set de 30 palabras con los nuevos gráficos corregidos y sugerentes
+        const vocabularyData = [
+            // BLOCK 1
+            { word: "Shrewd", phonetic: "/ʃruːd/", translation: "Astuto / Perspicaz", icon: "🧠", example: "She made a shrewd investment decision.", exampleTrans: "Tomó una decisión de inversión astuta.", block: 1 },
+            { word: "Cunning", phonetic: "/ˈkʌn.ɪŋ/", translation: "Astuto / Sagaz", icon: "🦊", example: "The cunning fox slipped away quietly.", exampleTrans: "El zorro astuto se escabulló silenciosamente.", block: 1 },
+            { word: "Standoffish", phonetic: "/ˌstændˈɒf.ɪʃ/", translation: "Distante / Frío", icon: "🙉", example: "He was quiet and standoffish at the meeting.", exampleTrans: "Estuvo callado y distante en la reunión.", block: 1 },
+            { word: "To point out", phonetic: "/tuː pɔɪnt aʊt/", translation: "Señalar / Indicar", icon: "👉", example: "I would like to point out some errors.", exampleTrans: "Me gustaría señalar algunos errores.", block: 1 },
+            { word: "To snoop", phonetic: "/tuː snuːp/", translation: "Fisgonear", icon: "👀", example: "She caught him trying to snoop around.", exampleTrans: "Lo atrapó intentando fisgonear por ahí.", block: 1 },
+
+            // BLOCK 2
+            { word: "Gullible", phonetic: "/ˈɡʌl.ə.bəl/", translation: "Ingenuo / Crédulo", icon: "🐠", example: "He is so gullible he believes anything.", exampleTrans: "Es tan ingenuo que se cree cualquier cosa.", block: 2 },
+            { word: "Desolate", phonetic: "/ˈdes.əl.ət/", translation: "Desolado / Solitario", icon: "🏜️", example: "We drove through a desolate landscape.", exampleTrans: "Conducimos a través de un paisaje desolado.", block: 2 },
+            { word: "To commute", phonetic: "/tuː kəˈmjuːt/", translation: "Viajar al trabajo", icon: "🚆", example: "He commutes to the city every morning.", exampleTrans: "Él viaja diariamente a la ciudad por la mañana.", block: 2 },
+            { word: "Flaking", phonetic: "/ˈfleɪ.kɪŋ/", translation: "Descarapelado / Desprendido", icon: "🍂", example: "The old paint is flaking off the wood.", exampleTrans: "La pintura vieja se está desprendiendo de la madera.", block: 2 },
+            { word: "Stain", phonetic: "/steɪn/", translation: "Barniz / Tinte / Mancha", icon: "🖌️", example: "Apply a dark stain to protect the table.", exampleTrans: "Aplica un tinte oscuro para proteger la mesa.", block: 2 },
+
+            // BLOCK 3
+            { word: "Resin", phonetic: "/ˈrez.ɪn/", translation: "Resina", icon: "🌲", example: "Pine trees secrete natural resin.", exampleTrans: "Los pinos secretan resina natural.", block: 3 },
+            { word: "Knots", phonetic: "/nɒts/", translation: "Nudos (en madera)", icon: "🪵", example: "This wood board has too many knots.", exampleTrans: "Esta tabla de madera tiene demasiados nudos.", block: 3 },
+            { word: "Fascinating", phonetic: "/ˈfæs.ɪ.neɪ.tɪŋ/", translation: "Fascinante", icon: "🤩", example: "The history of the forest is fascinating.", exampleTrans: "La historia del bosque es fascinante.", block: 3 },
+            { word: "To trigger", phonetic: "/tuː ˈtrɪɡ.ər/", translation: "Desencadenar / Activar", icon: "⚡", example: "Certain foods can trigger an allergic reaction.", exampleTrans: "Ciertos alimentos pueden desencadenar una reacción alérgica.", block: 3 },
+            { word: "To tackle", phonetic: "/tuː ˈtæk.əl/", translation: "Abordar / Enfrentar", icon: "🏈", example: "We need to tackle the issue immediately.", exampleTrans: "Necesitamos abordar el problema de inmediato.", block: 3 },
+
+            // BLOCK 4
+            { word: "Overwhelming", phonetic: "/ˌoʊ.vərˈwel.mɪŋ/", translation: "Abrumador", icon: "🌊", example: "The response from the public was overwhelming.", exampleTrans: "La respuesta del público fue abrumadora.", block: 4 },
+            { word: "Reluctance", phonetic: "/rɪˈlʌk.təns/", translation: "Reticencia / Recelo", icon: "🫣", example: "She showed reluctance to sign the document.", exampleTrans: "Mostró reticencia a firmar el documento.", block: 4 },
+            { word: "To double down", phonetic: "/tuː ˈdʌb.əl daʊn/", translation: "Redoblar esfuerzos", icon: "🎰", example: "They decided to double down on their strategy.", exampleTrans: "Decidieron redoblar esfuerzos en su estrategia.", block: 4 },
+            { word: "At all", phonetic: "/æt ɔːl/", translation: "Para nada / En absoluto", icon: "❌", example: "I am not tired at all.", exampleTrans: "No estoy cansado en absoluto.", block: 4 },
+            { word: "Knackered", phonetic: "/ˈnæk.ərd/", translation: "Agotado / Hecho polvo", icon: "😪", example: "I was completely knackered after work.", exampleTrans: "Estaba completamente agotado después del trabajo.", block: 4 },
+
+            // BLOCK 5
+            { word: "Silt", phonetic: "/sɪlt/", translation: "Limo / Sedimento", icon: "⏳", example: "The well water was blocked by silt.", exampleTrans: "El agua del pozo estaba bloqueada por limo.", block: 5 },
+            { word: "Clay", phonetic: "/kleɪ/", translation: "Arcilla", icon: "🏺", example: "The soil here contains too much clay.", exampleTrans: "La tierra de aquí contiene demasiada arcilla.", block: 5 },
+            { word: "Drill", phonetic: "/drɪl/", translation: "Taladro / Broca", icon: "⚙️", example: "Use the correct drill bit for the metal.", exampleTrans: "Usa la broca correcta para el metal.", block: 5 },
+            { word: "Crossover", phonetic: "/ˈkrɒsˌoʊ.vər/", translation: "Divisor de frecuencias", icon: "🎛️", example: "The speaker crossover filters the highs and lows.", exampleTrans: "El crossover del altavoz filtra agudos y graves.", block: 5 },
+            { word: "Inverter", phonetic: "/ɪnˈvɜː.tər/", translation: "Inversor (de energía)", icon: "🔋", example: "The solar inverter converts DC to AC.", exampleTrans: "El inversor solar convierte corriente directa a alterna.", block: 5 },
+
+            // BLOCK 6
+            { word: "To lease", phonetic: "/tuː liːs/", translation: "Arrendar", icon: "🏠", example: "They decided to lease the commercial office.", exampleTrans: "Decidieron arrendar la oficina comercial.", block: 6 },
+            { word: "To hedge", phonetic: "/tuː hedʒ/", translation: "Cobertura / Protegerse", icon: "🛡️", example: "Gold is often used to hedge against inflation.", exampleTrans: "El oro se usa a menudo para protegerse de la inflación.", block: 6 },
+            { word: "Yield", phonetic: "/jiːld/", translation: "Rendimiento", icon: "📈", example: "This mutual fund offers a high yield.", exampleTrans: "Este fondo mutuo ofrece un alto rendimiento.", block: 6 },
+            { word: "Asset", phonetic: "/ˈæs.et/", translation: "Activo / Bien", icon: "💎", example: "Real estate is a valuable asset.", exampleTrans: "Los bienes raíces son un activo valioso.", block: 6 },
+            { word: "To plummet", phonetic: "/tuː ˈplʌm.ɪt/", translation: "Desplomarse / Caer en picada", icon: "📉", example: "The copper prices plummeted this morning.", exampleTrans: "Los precios del cobre se desplomaron esta mañana.", block: 6 }
         ];
 
+        let currentBlock = 1;
+        let filteredCards = [];
         let currentIndex = 0;
+
         const cardContainer = document.getElementById('cardContainer');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const counterElement = document.getElementById('cardCounter');
+        const blockSelector = document.getElementById('blockSelector');
 
-        // Referencias a los campos dinámicos
         const cardIcon = document.getElementById('cardIcon');
         const cardWord = document.getElementById('cardWord');
         const cardPhonetic = document.getElementById('cardPhonetic');
@@ -281,43 +304,73 @@
         const cardExample = document.getElementById('cardExample');
         const cardExampleTrans = document.getElementById('cardExampleTrans');
 
-        // Función para actualizar los datos de la tarjeta
+        // Inicializar botones de Bloques (del 1 al 6)
+        function initBlockSelectors() {
+            blockSelector.innerHTML = '';
+            const totalBlocks = 6;
+            for (let i = 1; i <= totalBlocks; i++) {
+                const btn = document.createElement('button');
+                btn.className = `block-btn ${i === currentBlock ? 'active' : ''}`;
+                btn.textContent = `Block ${i}`;
+                btn.addEventListener('click', () => selectBlock(i));
+                blockSelector.appendChild(btn);
+            }
+        }
+
+        // Cambiar de Bloque de estudio
+        function selectBlock(blockNum) {
+            currentBlock = blockNum;
+            filteredCards = vocabularyData.filter(card => card.block === currentBlock);
+            currentIndex = 0;
+            
+            // Actualizar estado activo en los botones
+            document.querySelectorAll('.block-btn').forEach((btn, idx) => {
+                if (idx + 1 === blockNum) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            updateCard(currentIndex);
+        }
+
+        // Renderizar tarjeta actual
         function updateCard(index) {
-            // Quitamos la clase 'flipped' para que vuelva a mostrar el frente al cambiar de palabra
             cardContainer.classList.remove('flipped');
             
-            // Esperamos un momento a que termine la animación de regreso antes de cambiar el texto
             setTimeout(() => {
-                const data = flashcards[index];
+                const data = filteredCards[index];
                 cardIcon.textContent = data.icon;
                 cardWord.textContent = data.word;
                 cardPhonetic.textContent = data.phonetic;
                 cardTranslation.textContent = data.translation;
                 cardExample.textContent = data.example;
                 cardExampleTrans.textContent = data.exampleTrans;
-                counterElement.textContent = `${index + 1} / ${flashcards.length}`;
+                counterElement.textContent = `${index + 1} / ${filteredCards.length}`;
             }, 150);
         }
 
-        // Eventos
+        // Eventos de interacción
         cardContainer.addEventListener('click', () => {
             cardContainer.classList.toggle('flipped');
         });
 
         prevBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que la tarjeta gire al pulsar el botón
-            currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+            e.stopPropagation();
+            currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
             updateCard(currentIndex);
         });
 
         nextBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que la tarjeta gire al pulsar el botón
-            currentIndex = (currentIndex + 1) % flashcards.length;
+            e.stopPropagation();
+            currentIndex = (currentIndex + 1) % filteredCards.length;
             updateCard(currentIndex);
         });
 
-        // Inicializar la primera vista
-        updateCard(currentIndex);
+        // Inicialización
+        initBlockSelectors();
+        selectBlock(1);
     </script>
 </body>
 </html>
